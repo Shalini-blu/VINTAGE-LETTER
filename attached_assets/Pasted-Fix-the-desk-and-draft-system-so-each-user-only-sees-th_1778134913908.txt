@@ -1,0 +1,19 @@
+Fix the desk and draft system so each user only sees their own drafts on their own device by using browser localStorage instead of shared/global storage. Drafts should autosave while typing and reload only for that specific browser/device.
+
+Redesign the writing scene to behave more like a real mechanical typewriter instead of a normal text editor. Move the keyboard visually below the paper and carriage area. The paper should feed upward behind the carriage while typing, with the active typing line positioned near the carriage just like a real typewriter. The letter should appear to move upward physically as more text is typed.
+
+Remove the visible toolbar clutter. Replace all customization controls with a small elegant brass settings icon or hidden mechanical button. When clicked, a hidden side drawer/panel should slide open smoothly with a tactile mechanical feel containing font selection, ink colors, paper textures, image uploads, and decoration options. The interface should feel immersive, cinematic, tactile, warm, vintage, and mechanical rather than like a modern web form.
+
+Completely redesign the export/share system. Instead of downloading plain text or broken links, generate a downloadable standalone interactive HTML letter experience. The exported/shared file should open as a vintage sealed envelope with all styles, textures, fonts, and animations preserved. When the receiver clicks the wax seal or stamp, the envelope should animate open and the letter should smoothly slide/pop out and reveal the message inside. The exported experience must work independently when opened on another device or shared with someone else.
+
+Add immersive cinematic sound design throughout the entire experience. Each interaction should have unique soft mechanical audio feedback:
+
+typewriter key presses should sound tactile and authentic
+carriage return and paper feed should have realistic mechanical sliding sounds
+opening the settings drawer should produce a soft metallic/brass click or sliding sound
+paper movement should include subtle textured paper sounds
+wax stamping and sealing should feel soft, elegant, and satisfying
+clicking or pressing the wax seal on the envelope should produce a gentle premium seal-click sound followed by a soft unfolding paper sound as the letter reveals itself
+transitions and interactions should feel calming, aesthetic, emotional, and cinematic rather than loud or game-like
+
+Improve the overall cinematic immersion using smoother transitions, realistic motion easing, warm ambient lighting, subtle shadows, paper depth, mechanical movement, and tactile animations so the entire product feels like operating a luxurious antique correspondence machine.

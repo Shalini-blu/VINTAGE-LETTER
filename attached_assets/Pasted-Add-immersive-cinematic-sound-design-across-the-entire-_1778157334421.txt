@@ -1,0 +1,48 @@
+Add immersive cinematic sound design across the entire experience. Every interaction, movement, and mechanical element should have soft tactile audio feedback that feels warm, vintage, elegant, emotional, and realistic rather than loud or game-like.
+
+Include detailed sounds for:
+
+* typewriter key presses with subtle variation
+* carriage return and lever movement
+* paper feeding upward behind the carriage
+* soft paper friction while typing
+* opening and closing the hidden settings drawer with brass/mechanical clicks
+* button presses and switches
+* envelope handling and folding
+* wax seal placement and stamping
+* soft wax crack when opening the seal
+* paper unfolding and sliding sounds during the reveal animation
+* subtle ambient mechanical and vintage atmosphere sounds
+
+The sounds should synchronize naturally with animations and interactions to make the entire product feel like operating a luxurious antique correspondence machine.
+
+Add a paper aging/distress customization system inside the hidden settings drawer. Users should be able to apply vintage document effects such as:
+
+* torn or worn paper edges
+* ink bleed and faded ink spread
+* foxing spots and age stains
+* wrinkles and paper texture depth
+* slightly burnt or weathered corners
+* uneven paper discoloration and aging
+
+These distress effects should update live on the letter preview and also remain fully preserved in both the exported interactive HTML file and the browser-based shareable link experience so the final result genuinely feels like an old preserved historical document.
+
+Do not replace the standalone interactive HTML export system. Keep the downloadable HTML letter experience fully functional for desktop/laptop users.
+
+Additionally, add a second browser-based shareable link system for mobile compatibility. The app should support BOTH:
+
+1. downloadable standalone interactive HTML letters
+2. shareable browser links that work on mobile and desktop
+
+The downloadable HTML file should preserve the complete interactive envelope experience offline.
+
+The shareable link system should generate a mobile-friendly URL that reconstructs the same cinematic envelope experience directly in the browser, including:
+
+* sealed vintage envelope
+* preserved textures, fonts, and styling
+* wax seal interaction
+* envelope opening animation
+* paper sliding/reveal animation
+* sounds and cinematic transitions
+
+Both systems should coexist without replacing each other.

@@ -1,0 +1,390 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification for Letterpress — a typewriter letter writing app
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: letters
+    description: Letter operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /letters:
+    get:
+      operationId: listLetters
+      tags: [letters]
+      summary: List all letters
+      description: Returns all letters and drafts sorted by most recently updated
+      responses:
+        "200":
+          description: List of letters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Letter"
+
+    post:
+      operationId: createLetter
+      tags: [letters]
+      summary: Create a new letter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LetterInput"
+      responses:
+        "201":
+          description: Letter created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Letter"
+
+  /letters/{id}:
+    get:
+      operationId: getLetter
+      tags: [letters]
+      summary: Get a letter by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Letter found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Letter"
+        "404":
+          description: Letter not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    put:
+      operationId: updateLetter
+      tags: [letters]
+      summary: Update a letter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LetterUpdateInput"
+      responses:
+        "200":
+          description: Letter updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Letter"
+        "404":
+          description: Letter not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    delete:
+      operationId: deleteLetter
+      tags: [letters]
+      summary: Delete a letter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Letter deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+        "404":
+          description: Letter not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /letters/{id}/share:
+    post:
+      operationId: shareLetter
+      tags: [letters]
+      summary: Generate a shareable token for a letter
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Share token generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShareResponse"
+        "404":
+          description: Letter not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /letters/shared/{token}:
+    get:
+      operationId: getSharedLetter
+      tags: [letters]
+      summary: Get a shared letter by token
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Shared letter found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Letter"
+        "404":
+          description: Letter not found or token invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /letters/stats:
+    get:
+      operationId: getLetterStats
+      tags: [letters]
+      summary: Get letter statistics
+      description: Returns counts of total letters, drafts, and sent letters
+      responses:
+        "200":
+          description: Statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LetterStats"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      required:
+        - success
+
+    ShareResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        url:
+          type: string
+      required:
+        - token
+        - url
+
+    LetterStats:
+      type: object
+      properties:
+        total:
+          type: integer
+        drafts:
+          type: integer
+        sent:
+          type: integer
+        completed:
+          type: integer
+      required:
+        - total
+        - drafts
+        - sent
+        - completed
+
+    Letter:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        recipientName:
+          type: string
+          nullable: true
+        recipientEmail:
+          type: string
+          nullable: true
+        senderName:
+          type: string
+          nullable: true
+        font:
+          type: string
+          nullable: true
+          description: Font family name
+        inkColor:
+          type: string
+          nullable: true
+          description: Hex color for ink
+        paperTexture:
+          type: string
+          nullable: true
+          description: Paper texture identifier
+        envelopeStyle:
+          type: string
+          nullable: true
+          description: Envelope style identifier
+        waxSealColor:
+          type: string
+          nullable: true
+          description: Hex color for wax seal
+        waxSealSymbol:
+          type: string
+          nullable: true
+          description: Symbol/stamp identifier for wax seal
+        imageUrl:
+          type: string
+          nullable: true
+          description: Optional embedded image URL
+        status:
+          type: string
+          enum: [draft, completed, sent]
+        shareToken:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - content
+        - status
+        - createdAt
+        - updatedAt
+
+    LetterInput:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        recipientName:
+          type: string
+        recipientEmail:
+          type: string
+        senderName:
+          type: string
+        font:
+          type: string
+        inkColor:
+          type: string
+        paperTexture:
+          type: string
+        envelopeStyle:
+          type: string
+        waxSealColor:
+          type: string
+        waxSealSymbol:
+          type: string
+        imageUrl:
+          type: string
+        status:
+          type: string
+          enum: [draft, completed, sent]
+      required:
+        - title
+        - content
+
+    LetterUpdateInput:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        recipientName:
+          type: string
+        recipientEmail:
+          type: string
+        senderName:
+          type: string
+        font:
+          type: string
+        inkColor:
+          type: string
+        paperTexture:
+          type: string
+        envelopeStyle:
+          type: string
+        waxSealColor:
+          type: string
+        waxSealSymbol:
+          type: string
+        imageUrl:
+          type: string
+        status:
+          type: string
+          enum: [draft, completed, sent]
